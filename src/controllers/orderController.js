@@ -2,12 +2,12 @@ const orderModel = require("../models/orderModel");
 
 const getOrders = async (req, res) => {
     try {
-        const {product} = req.body;
-        const orders = await orderModel.getOrders(product);
+        const { price } = req.query; // Use req.query se o parâmetro vier da URL
+        const orders = await orderModel.getOrders(price);
         res.status(200).json(orders);
     } catch (error) {
-        res.status(404).json({error: "Internal server error"});
-    };
+        res.status(500).json({ error: "Internal server error", details: error.message });
+    }
 };
 
 const getOrderById = async (req, res) => {
