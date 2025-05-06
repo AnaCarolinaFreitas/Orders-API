@@ -1,8 +1,16 @@
 const pool = require("../config/database.js");
 
-const getOrders = async () => {
-    const result = await pool.query(`SELECT orders.*, clients.name AS client_name FROM orders LEFT JOIN clients ON orders.client_id = clients.id`);
+const getOrders = async (price) => {
+    if (price && price.trim()){
+        const result = await pool.query("SELECT orders.*, clients.name AS client_name FROM orders LEFT JOIN clients ON orders.client_id = clients.id WHERE CAST(order.price AS TEXT) ILIKE $1",
+        [`%${price.trim()}%`]
+    );
     return result.rows;
+    } else {
+        const result = await pool.query ( "SELECT orders.*, clients.name AS client_name FROM order LEFT JOIN clients ON orders.client_id = clients.id"
+        );
+        return result.rows;
+    }
 };
 
 const getOrderById = async (id) => {

@@ -10,9 +10,8 @@ CREATE TABLE orders (
 
 CREATE TABLE clients (
     id SERIAL PRIMARY KEY,
-    name VARCHAR(150) NOT NULL
-    profile TEXT,
-    past_orders INTEGER REFERENCES orders(id) ON DELETE SET NULL
+    name VARCHAR(150) NOT NULL,
+    profile TEXT
 );
 
 INSERT INTO orders (product, price, client_id) VALUES
