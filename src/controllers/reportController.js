@@ -41,10 +41,10 @@ const exportClientsPdf = async (req,res) => {
         const doc = new PDFDocument();
         doc.pipe(res);
 
-        doc.fontSize(20).text("Lista de Pedidos", { align: "center" });
+        doc.fontSize(20).text("Lista de Clientes", { align: "center" });
         doc.moveDown();
 
-        doc.fontSize(12).text("id | Produto | Preco | Comprador", {underline: true});
+        doc.fontSize(12).text("id | Nome | Imagem", {underline: true});
         doc.moveDown(0.5);
 
         clients.forEach((client) => {
