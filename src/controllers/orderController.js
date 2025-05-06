@@ -22,16 +22,18 @@ const getOrderById = async (req, res) => {
     }
 };
 
-const createOrder = async (req,res) => {
+const createOrder = async (req, res) => {
     try {
-        const {product, price, client_id} = req.body;
+        const { product, price, client_id } = req.body;
         const newOrder = await orderModel.createOrder(product, price, client_id);
         res.status(201).json(newOrder);
     } catch (error) {
+        console.error("Erro ao criar pedido:", error); // Adicione este log
         if (error.code === "23505") {
-            res.status(409).json({error: "This order already exists"});
+            res.status(409).json({ error: "This order already exists" });
+        } else {
+            res.status(500).json({ error: "Error creating order", details: error.message });
         }
-        res.status(500).json({eror: "Error creating order"});
     }
 };
 

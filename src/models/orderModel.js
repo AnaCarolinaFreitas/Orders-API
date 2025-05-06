@@ -25,9 +25,9 @@ const getOrderById = async (id) => {
 return result.rows[0];
 };
 
-const createOrder = async (product, price, ) => {
+const createOrder = async (product, price, client_id) => {
     const result = await pool.query(
-        "INSERT INTO orders (product, price, client_id) VALUES ($1, $2, $3) RETURNNING *",
+        "INSERT INTO orders (product, price, client_id) VALUES ($1, $2, $3) RETURNING *",
         [product, price, client_id]
     );
     return result.rows[0];
